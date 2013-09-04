@@ -61,7 +61,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 // begin WITH_TAINT_TRACKING
-import dalvik.system.Taint;
+import dalvik.system.TaintLog;
 import com.android.internal.telephony.IccUtils;
 // end WITH_TAINT_TRACKING
 
@@ -372,6 +372,7 @@ final class CdmaSMSDispatcher extends SMSDispatcher {
         byte pdu[] = (byte[]) map.get("pdu");
         
 // begin WITH_TAINT_TRACKING
+/*
         int tag = Taint.getTaintByteArray(pdu);
         if (tag != Taint.TAINT_CLEAR) {
             String tstr = "0x" + Integer.toHexString(tag);
@@ -379,6 +380,7 @@ final class CdmaSMSDispatcher extends SMSDispatcher {
                       + ") received data from app " + tracker.mAppPackage
                       + " with tag " + tstr + " data=[" + tracker.mContents + "]");
         }
+*/
 // end WITH_TAINT_TRACKING
 
         Message reply = obtainMessage(EVENT_SEND_SMS_COMPLETE, tracker);

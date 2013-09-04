@@ -20,7 +20,9 @@ import android.app.PendingIntent;
 
 import java.util.ArrayList;
 
-
+// begin WITH_TAINT_TRACKING
+import dalvik.system.TaintLog;
+// end WITH_TAINT_TRACKING
 /**
  * Manages SMS operations such as sending data, text, and pdu SMS messages.
  * Get this object by calling the static method SmsManager.getDefault().

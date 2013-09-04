@@ -29398,7 +29398,7 @@ package dalvik.system {
     method public static int getTaintShort(short);
     method public static int getTaintShortArray(short[]);
     method public static int getTaintString(java.lang.String);
-    method public static void log(java.lang.String);
+//    method public static void log(java.lang.String);
 //    method public static void logPathFromFd(int);
 //    method public static void logPeerFromFd(int);
     field public static final int TAINT_ACCELEROMETER = 256; // 0x100
@@ -29455,7 +29455,7 @@ package dalvik.system {
      field public static final int NET_SEND_DIRECT_ACTION = 8192;
      field public static final int NET_SEND_URGENT_ACTION = 16384;
      field public static final int NET_WRITE_ACTION = 32768;
-     field public static final int NET_WRITE_DIRECT_ACTION=65536;
+     field public static final int         NET_WRITE_DIRECT_ACTION = 65536;
      field public static final int SMS_ACTION = 1048576;
      field public static final int SMS_DATA_ACTION = 4194304;
      field public static final int SMS_MULTIPART_ACTION = 2097152;

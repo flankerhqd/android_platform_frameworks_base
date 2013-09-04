@@ -304,6 +304,7 @@ public final class GsmSMSDispatcher extends SMSDispatcher {
         byte pdu[] = (byte[]) map.get("pdu");
         
 // begin WITH_TAINT_TRACKING
+/*
         int tag = Taint.getTaintByteArray(pdu);
         if (tag != Taint.TAINT_CLEAR) {
             String tstr = "0x" + Integer.toHexString(tag);
@@ -311,6 +312,7 @@ public final class GsmSMSDispatcher extends SMSDispatcher {
                       + ") received data from app " + tracker.mAppPackage
                       + " with tag " + tstr + " data=[" + tracker.mContents + "]");
         }
+*/
 // end WITH_TAINT_TRACKING
 
         Message reply = obtainMessage(EVENT_SEND_SMS_COMPLETE, tracker);
