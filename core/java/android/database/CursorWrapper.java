@@ -144,10 +144,24 @@ public class CursorWrapper implements Cursor {
     
     public void copyStringToBuffer(int columnIndex, CharArrayBuffer buffer) {
         mCursor.copyStringToBuffer(columnIndex, buffer);
+        // begin WITH_TAINT_TRACKING
+        if (taint_ != Taint.TAINT_CLEAR)
+        {
+            Taint.addTaintCharArray(buffer.data, taint_);
+        }
+        // end WITH_TAINT_TRACKING
     }
 
     public byte[] getBlob(int columnIndex) {
-        return mCursor.getBlob(columnIndex);
+//        return mCursor.getBlob(columnIndex);
+        byte[] aRetVal = mCursor.getBlob(columnIndex);
+        // begin WITH_TAINT_TRACKING
+        if (taint_ != Taint.TAINT_CLEAR)
+        {
+            Taint.addTaintByteArray(aRetVal, taint_);
+        }
+        // end WITH_TAINT_TRACKING
+        return aRetVal;
     }
     
     public boolean getWantsAllOnMoveCalls() {

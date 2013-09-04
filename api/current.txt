@@ -29363,6 +29363,7 @@ package dalvik.system {
     method public static void addTaintCharArray(char[], int);
     method public static void addTaintDirectByteBuffer(java.nio.ByteBuffer, int);
     method public static double addTaintDouble(double, int);
+    method public static void addTaintCharSequence(java.lang.CharSequence, int);
     method public static void addTaintDoubleArray(double[], int);
     method public static void addTaintFile(int, int);
     method public static float addTaintFloat(float, int);
@@ -29382,6 +29383,7 @@ package dalvik.system {
     method public static int getTaintChar(char);
     method public static int getTaintCharArray(char[]);
     method public static int getTaintDirectByteBuffer(java.nio.ByteBuffer);
+    method public static int getTaintCharSequence(java.lang.CharSequence);
     method public static int getTaintDouble(double);
     method public static int getTaintDoubleArray(double[]);
     method public static int getTaintFile(int);
@@ -29397,8 +29399,8 @@ package dalvik.system {
     method public static int getTaintShortArray(short[]);
     method public static int getTaintString(java.lang.String);
     method public static void log(java.lang.String);
-    method public static void logPathFromFd(int);
-    method public static void logPeerFromFd(int);
+//    method public static void logPathFromFd(int);
+//    method public static void logPeerFromFd(int);
     field public static final int TAINT_ACCELEROMETER = 256; // 0x100
     field public static final int TAINT_ACCOUNT = 16384; // 0x4000
     field public static final int TAINT_CAMERA = 128; // 0x80
@@ -29409,15 +29411,58 @@ package dalvik.system {
     field public static final int TAINT_ICCID = 4096; // 0x1000
     field public static final int TAINT_IMEI = 1024; // 0x400
     field public static final int TAINT_IMSI = 2048; // 0x800
+    field public static final int TAINT_INCOMING_DATA = 65536;
     field public static final int TAINT_LOCATION = 1; // 0x1
     field public static final int TAINT_LOCATION_GPS = 16; // 0x10
     field public static final int TAINT_LOCATION_LAST = 64; // 0x40
     field public static final int TAINT_LOCATION_NET = 32; // 0x20
+    field public static final int TAINT_MEDIA = 262144;
     field public static final int TAINT_MIC = 4; // 0x4
     field public static final int TAINT_PHONE_NUMBER = 8; // 0x8
     field public static final int TAINT_SMS = 512; // 0x200
     field public static final int dataBytesToLog = 100; // 0x64
+
+    //begin RUNNER
+    field public static final int TAINT_USER_INPUT = 131072;
   }
+
+  public final class TaintLog {
+     method public static dalvik.system.TaintLog getInstance();
+     method public void logCallAction(java.lang.String);
+     method public void logCipherUsage(java.lang.String,int,int,byte[],byte[]);
+     method public void logError(java.lang.String);
+     method public void logFileSystem(int,int,int,int,java.lang.String);
+     method public void logNetworkAction(int,int,java.lang.String,int,int,java.lang.String);
+     method public void logSSL(int,int,java.io.FileDescriptor,java.lang.String);
+     method public void logSendDataMessage(java.lang.String,java.lang.String,int,byte[]);
+     method public void logSendMultipartSms(java.lang.String,java.lang.String,java.util.ArrayList<java.lang.String>);
+     method public void logSmsAction(int,java.lang.String,java.lang.String,java.lang.String);
+     
+     field public static final int CALL_ACTION = 33554432;
+     field public static final int CIPHER_ACTION = 8388608;
+     field public static final int ERROR_ACTION = 16777216;
+     field public static final int FS_READV_ACTION = 4;
+     field public static final int FS_READ_ACTION = 1;
+     field public static final int FS_READ_DIRECT_ACTION = 2;
+     field public static final int FS_WRITEV_ACTION = 32;
+     field public static final int FS_WRITE_ACTION = 8;
+     field public static final int FS_WRITE_DIRECT_ACTION = 16;
+     field public static final int NET_READ_ACTION = 256;
+     field public static final int NET_READ_DIRECT_ACTION = 512;
+     field public static final int NET_RECV_ACTION = 1024;
+     field public static final int NET_RECV_DIRECT_ACTION = 2048;
+     field public static final int NET_SEND_ACTION = 4096;
+     field public static final int NET_SEND_DIRECT_ACTION = 8192;
+     field public static final int NET_SEND_URGENT_ACTION = 16384;
+     field public static final int NET_WRITE_ACTION = 32768;
+     field public static final int NET_WRITE_DIRECT_ACTION=65536;
+     field public static final int SMS_ACTION = 1048576;
+     field public static final int SMS_DATA_ACTION = 4194304;
+     field public static final int SMS_MULTIPART_ACTION = 2097152;
+     field public static final int SSL_READ_ACTION = 131072;
+     field public static final int SSL_WRITE_ACTION = 262144;
+     
+   }
 
 }
 

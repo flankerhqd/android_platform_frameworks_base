@@ -33,7 +33,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
+// begin WITH_TAINT_TRACKING
+import dalvik.system.TaintLog;
+// end WITH_TAINT_TRACKING
 
 /**
  * @hide
@@ -719,6 +721,9 @@ public final class CallManager {
             Log.d(LOG_TAG, " dial(" + basePhone + ", "+ dialString + ")");
             Log.d(LOG_TAG, this.toString());
         }
+        // begin WITH_TAINT_TRACKING
+        TaintLog.getInstance().logCallAction(dialString);
+        // end WITH_TAINT_TRACKING
 
         if (!canDial(phone)) {
             throw new CallStateException("cannot dial in current state");
@@ -764,7 +769,10 @@ public final class CallManager {
      * handled asynchronously.
      */
     public Connection dial(Phone phone, String dialString, UUSInfo uusInfo) throws CallStateException {
-        return phone.dial(dialString, uusInfo);
+        // begin WITH_TAINT_TRACKING
+        TaintLog.getInstance().logCallAction(dialString);
+        // end WITH_TAINT_TRACKING        
+	return phone.dial(dialString, uusInfo);
     }
 
     /**

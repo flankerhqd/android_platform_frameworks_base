@@ -402,6 +402,10 @@ public abstract class ContentResolver {
             else if(uri.toString().indexOf("content://mms") != -1) {
                 taint = Taint.TAINT_SMS;
             }
+            else if (uri.toString().indexOf("content://media") != -1)
+            {
+                taint = Taint.TAINT_MEDIA;
+            }
 // end WITH_TAINT_TRACKING
 
             // force query execution

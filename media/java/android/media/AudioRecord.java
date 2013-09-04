@@ -31,6 +31,7 @@ import android.util.Log;
 
 // begin WITH_TAINT_TRACKING
 import dalvik.system.Taint;
+import dalvik.system.TaintLog;
 // end WITH_TAINT_TRACKING
 
 /**

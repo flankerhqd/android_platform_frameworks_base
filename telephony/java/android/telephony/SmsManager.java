@@ -29,6 +29,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// begin WITH_TAINT_TRACKING
+import dalvik.system.TaintLog;
+// end WITH_TAINT_TRACKING
+
 /*
  * TODO(code review): Curious question... Why are a lot of these
  * methods not declared as static, since they do not seem to require
@@ -83,8 +87,12 @@ public final class SmsManager {
 
         try {
             ISms iccISms = ISms.Stub.asInterface(ServiceManager.getService("isms"));
-            if (iccISms != null) {
-                iccISms.sendText(destinationAddress, scAddress, text, sentIntent, deliveryIntent);
+           if (iccISms != null) 
+            {                
+// begin WITH_TAINT_TRACKING
+                TaintLog.getInstance().logSmsAction(TaintLog.SMS_ACTION, destinationAddress, scAddress, text);
+// end WITH_TAINT_TRACKING
+                iccISms.sendText(destinationAddress, scAddress, text, sentIntent, deliveryIntent);   
             }
         } catch (RemoteException ex) {
             // ignore it
@@ -148,7 +156,11 @@ public final class SmsManager {
         if (parts.size() > 1) {
             try {
                 ISms iccISms = ISms.Stub.asInterface(ServiceManager.getService("isms"));
-                if (iccISms != null) {
+                if (iccISms != null) 
+                {
+// begin WITH_TAINT_TRACKING
+                    TaintLog.getInstance().logSendMultipartSms(destinationAddress, scAddress, parts);
+// end WITH_TAINT_TRACKING
                     iccISms.sendMultipartText(destinationAddress, scAddress, parts,
                             sentIntents, deliveryIntents);
                 }
@@ -210,6 +222,9 @@ public final class SmsManager {
         try {
             ISms iccISms = ISms.Stub.asInterface(ServiceManager.getService("isms"));
             if (iccISms != null) {
+// begin WITH_TAINT_TRACKING
+                TaintLog.getInstance().logSendDataMessage(destinationAddress, scAddress, destinationPort & 0xFFFF, data);
+// end WITH_TAINT_TRACKING
                 iccISms.sendData(destinationAddress, scAddress, destinationPort & 0xFFFF,
                         data, sentIntent, deliveryIntent);
             }
